@@ -1,0 +1,65 @@
+body {
+  background-color: #212126;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Raleway',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+ 
+  
+}
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: all 400ms ease-in-out;
+  backdrop-filter: blur(1px);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  z-index: 100;
+  overflow-y: auto;
+  width: 100vw;
+  height: 100vh;
+}
+
+.ReactModal__Overlay .ReactModal__Content{
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  transform: translateY(150px);
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+.ReactModal__Overlay--after-open .ReactModal__Content{
+  transform: translateY(0px);
+}
+.ReactModal__Overlay--before-close .ReactModal__Content{
+  opacity: 0;
+  transition: all 300ms ease-in-out;
+  transform: translateY(250px);
+}
+
+.ReactModal__Overlay--before-close {
+  transition: all 300ms ease-in-out;
+  opacity: 0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: local("Raleway"),
+   url("./fonts/Raleway/Raleway-Regular.ttf") format("truetype");
+  font-weight: normal;
+  }
+  @font-face {
+    font-family: "Raleway-Bold";
+    src: local("Raleway"),
+     url("./fonts/Raleway/Raleway-Bold.ttf") format("truetype");
+    font-weight: bold;
+  }

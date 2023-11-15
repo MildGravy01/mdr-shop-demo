@@ -1,0 +1,42 @@
+{
+  "node": {
+    "__dirname": false
+  },
+  "name": "mdr-backend-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "start:frontend": "cd frontend && npm start",
+    "build": "cd frontend && npm run build",
+    "dev": "concurrently \"nodemon index.js\"  \"cd frontend && npm start\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@qiwi/bill-payments-node-js-sdk": "^3.2.1",
+    "any-digit-id": "^1.0.0",
+    "anypay.io": "^1.10.3",
+    "axios": "^1.1.3",
+    "concurrently": "^7.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "mysql": "^2.18.1",
+    "node-forge": "^1.3.1",
+    "rcon": "^1.1.0",
+    "react-confetti": "^6.1.0",
+    "react-router-dom": "^6.9.0",
+    "sha256": "^0.2.0",
+    "sphp": "^0.6.3",
+    "uuid": "^9.0.0",
+    "ws": "^8.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
