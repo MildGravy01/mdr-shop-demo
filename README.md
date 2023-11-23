@@ -25,8 +25,9 @@
 `/api/img?image_id=` - возращает картинку, используется для товаров<br>
 `/api/checkPurchase?order_id=` - возращает статус заказа<br>
 
-
+## Стенды
+`Prod` - https://md-resorts.ru
+`test` - https://test.md-resorts.ru 
 
 # Авторы
-`MildGravy0`# mdr-shop-demo
-# mdr-shop-demo
+`MildGravy0`

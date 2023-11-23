@@ -1,35 +1,37 @@
-import mysql from "mysql"; 
-import { databaseSettings, QIWI_CONF } from "./config.js";
-import QiwiBillPaymentsAPI from "@qiwi/bill-payments-node-js-sdk";
+import mysql from 'mysql';
+import {databaseSettings, QIWI_CONF} from './config.js';
+import QiwiBillPaymentsAPI from '@qiwi/bill-payments-node-js-sdk';
 
-var connection; 
+let connection;
 function handleDisconnect() {
+  console.log(databaseSettings);
   connection = mysql.createConnection(databaseSettings);
-                                                
 
-  connection.connect(function(err) {             
-    if(err) {                                    
+
+  connection.connect(function(err) {
+    if (err) {
       console.log('error when connecting to db:', err);
       setTimeout(handleDisconnect, 2000);
-    }                                    
-  });                                    
-                                        
+    }
+  });
+
   connection.on('error', function(err) {
     console.error('db error', err);
-    if(err.code === 'PROTOCOL_CONNECTION_LOST') {
-      handleDisconnect();                        
-    } else {                                     
-       throw err;                                 
-  }});
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+      handleDisconnect();
+    } else {
+      throw err;
+    }
+  });
 }
 
-handleDisconnect(); 
+handleDisconnect();
 
 const db = new Promise((resolve) => {
-  if(connection){
+  if (connection) {
     resolve(connection);
   } else {
-    throw new Error("NO DB CONNECTION");
+    throw new Error('NO DB CONNECTION');
   }
 });
 

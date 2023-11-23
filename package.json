@@ -8,10 +8,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
+    "start": "node --experimental-specifier-resolution=node index.js",
     "start:frontend": "cd frontend && npm start",
     "build": "cd frontend && npm run build",
-    "dev": "concurrently \"nodemon index.js\"  \"cd frontend && npm start\""
+    "dev": "concurrently \"nodemon --experimental-specifier-resolution=node index.js\"  \"cd frontend && npm start\""
   },
   "keywords": [],
   "author": "",
@@ -37,6 +37,8 @@
     "ws": "^8.11.0"
   },
   "devDependencies": {
+    "eslint": "^8.54.0",
+    "eslint-config-google": "^0.14.0",
     "nodemon": "^2.0.19"
   }
 }

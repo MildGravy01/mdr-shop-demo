@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+      "baseUrl": "./",
+      "esModuleInterop": true,
+      "jsx": "react-jsx",
+      "typeRoots": ["./node_modules/@types", "./src/types"],
+      "module": "esnext",
+      "moduleResolution": "node",
+      "lib": [
+        "dom",
+        "esnext",
+      ],
+      "strict": true,
+      "sourceMap": true,
+      "target": "esnext",
+      "paths": {
+        "components": ["./src/components"],
+        "components/types": ["./src/components/types"],
+        "img/*": ["./src/img"]
+      }
+    },
+    "exclude": [
+      "node_modules"
+    ]
+  }
