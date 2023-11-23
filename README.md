@@ -1,6 +1,6 @@
-# Магазин сервера
+# Магазин сервера MD-RESORTS.RU
 
-Используемый стек - `Node.js`,`Express`,`Mysql`,`React`, `MobX`
+Используемый стек - `Node.js`,`Express`,`Mysql`,`React`
 ## Начало работы
 
 `npm run build` - сбилдить фронтенд проект.<br>
