@@ -11,12 +11,13 @@ import { faVk, faDiscord } from '@fortawesome/free-brands-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {translation} from '../../translations';
 import {NavLink as Link} from 'react-router-dom';
-import HTMLReactParser from 'html-react-parser';
-import {sanitize} from 'dompurify';
+import Logo from 'img/Logo.svg?url';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { PlayerCounter } from '../PlayerCounter';
 export const Header = () => {
   return (
     <StyledHeader>
-      <StyledLogo width={182} height={40} />
+      <StyledLogo width={182} height={40} src={Logo} onClick={() => redirect('/')}/>
       <nav>
         <ul>
           <li>
@@ -64,34 +65,7 @@ export const Header = () => {
             </StyledMenuButtonVk>
           </li>
           <li>
-            {HTMLReactParser(sanitize(`
-            <a
-              href="https://mineserv.top/mdrserver"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-project="1362"
-              class="mn-srv-btn mn-srv-btn--online"
-            >
-              <span class="mn-srv-btn__icon">
-                <span>
-                  <svg viewBox="0 0 36 36">
-                    <path
-                      d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                      fill="none"
-                      stroke="#fff"
-                      stroke-width="4"
-                      stroke-linecap="round"
-                      stroke-dasharray="3, 100"
-                    ></path>
-                  </svg>
-                  <span>3</span>
-                </span>
-              </span>
-              <span class="mn-srv-btn__text">
-                <span>MDR</span> <p>Игроков 3 из 100</p>
-              </span>
-            </a>
-            <script src="https://mineserv.top/widgets.js"></script>`))}
+            <PlayerCounter />
           </li>
         </ul>
       </nav>
@@ -104,7 +78,20 @@ const redirect = (url: string) => {
 export const Footer = () => {
   return (
     <StyledFooter>
-      {`© ${new Date().getFullYear()} ${translation.t('footer.rights')} mg0`}
+      <div>
+        <div>{translation.t('footer.rights')}.</div>
+        <div>Сайт является частью MDRNetwork.</div>
+        <div>Все права защищены.</div>
+        <div>©️ MDR {new Date().getFullYear()}.</div>
+      </div>
+      <div>
+        <div className='terms'><a href="/terms">Информация и Политика использования</a></div>
+        <div className='terms'><a href="/publicOffer">Договор-оферта</a></div>
+        <div><a><FontAwesomeIcon icon={faEnvelope} className='icon'/>{`${translation.t("terms.email")}`}</a></div>
+        <div><FontAwesomeIcon icon={faVk} width={15} height={15} className='icon'/><a href="https://vk.com/mdrserver">Группа</a></div>
+        <div><FontAwesomeIcon icon={faDiscord} width={15} height={15} className='icon'/><a href="https://discord.com/invite/vVbYGcNMj8">Discord</a></div>
+      </div>
+
     </StyledFooter>
   );
 };

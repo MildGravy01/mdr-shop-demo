@@ -24,19 +24,19 @@ import {
   TabImage,
   Wrapper,
 } from './style';
-import star from 'img/star.svg';
-import pickaxe from 'img/pickaxe.svg';
-import feather from 'img/feather.svg';
-import bottle from 'img/bottle.svg';
-import emerald from 'img/emerald.svg';
-import enchPickaxe from 'img/ench_pickaxe.svg';
-import sword from 'img/sword.svg';
+import star from 'img/star.svg?url';
+import pickaxe from 'img/pickaxe.svg?url';
+import feather from 'img/feather.svg?url';
+import bottle from 'img/bottle.svg?url';
+import emerald from 'img/emerald.svg?url';
+import enchPickaxe from 'img/ench_pickaxe.svg?url';
+import sword from 'img/sword.svg?url';
 import survivalImg from 'img/survival.png';
-import tnt from 'img/tnt.svg';
-import diamondOre from 'img/diamondOre.svg';
+import tnt from 'img/tnt.svg?url';
+import diamondOre from 'img/diamondOre.svg?url';
 import griefImg from 'img/grief.jpeg';
 import bedwarsImg from 'img/bedwars.png';
-import map from 'img/map.svg';
+import map from 'img/map.svg?url';
 import API from '../../api';
 
 const About = () => {
@@ -121,7 +121,7 @@ const About = () => {
               </InfoHolder>
             )}
             <InfoHolder className="leftAlign">
-              <h3>Скидки в магазине до 50%</h3>
+              <h3>Скидки в магазине до 60%</h3>
               <h4>Успей купить пока не закончились</h4>
               <StyledLink to="/shop">В магазин</StyledLink>
             </InfoHolder>
@@ -147,7 +147,7 @@ const About = () => {
               </div>
             </StyledTab>
             <StyledTab>
-              <h3>MDR Гриферский</h3>
+              <h3>MDR Анархия</h3>
               <OnlineStatus
                 online={data?.grief?.online}
                 showOnlineText={false}
@@ -233,7 +233,7 @@ const About = () => {
             <TabContent>
               <TabImage src={griefImg}>
                 <AboutServer>
-                  <h3>MDR Гриферский</h3>
+                  <h3>MDR Анархия</h3>
                   <ProsHolder>
                     <ServerProsItem>
                       <img src={pickaxe} alt="" />

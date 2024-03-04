@@ -4,21 +4,22 @@ import { IPriceBadgeProps } from './types';
 export const PriceHolder = styled.div`
   display: flex;
 `;
-export const Background = styled.div<Pick<IPriceBadgeProps, 'promo'>>`
+export const Background = styled.div<Pick<IPriceBadgeProps, 'activated'>>`
   border: 1px dashed #2f2f36;
-  ${({promo}) =>
-    promo &&
+  ${({activated}) =>
+    activated &&
     css`
       border: 1.5px dashed #4d1c36;
     `}
   border-radius: 6px;
   display: flex;
+  background-color: #212126;
   cursor: default;
 `;
-export const CurrentPrice = styled.div<Pick<IPriceBadgeProps, 'promo'>>`
+export const CurrentPrice = styled.div<Pick<IPriceBadgeProps, 'activated'>>`
   border: 1.5px solid #4541ea;
-  ${({promo}) =>
-    promo &&
+  ${({activated}) =>
+    activated &&
     css`
       border: 1.5px solid #f0158b;
     `}

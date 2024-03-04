@@ -3,6 +3,7 @@ export interface ISegmentedControlProps {
     onChange?: (newValue: string) => void;
     value?: string;
     isLoading?: boolean;
+    className?: string;
 }
 
 export interface ISegmentedControlItem {

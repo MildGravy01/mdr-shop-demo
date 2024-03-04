@@ -80,4 +80,7 @@ export const Chapter = styled.div`
   margin-bottom: 20px;
   border-radius: 10px;
   font-size: 16px;
+  a {
+    color: #fff;
+  }
 `;

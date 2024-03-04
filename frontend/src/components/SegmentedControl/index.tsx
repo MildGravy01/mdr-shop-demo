@@ -8,9 +8,11 @@ import {
 } from './styles';
 import {useState, useEffect} from 'react';
 import {useStateProps} from '../../hooks/useStateProps';
+import { useWindowResize } from '../../hooks/useWindowResize';
 import { IPosition, ISegmentedControlProps } from './types';
 
-export const SegmentedControl = ({items, onChange, value, isLoading} : ISegmentedControlProps) => {
+
+export const SegmentedControl = ({items, onChange, value, isLoading, className} : ISegmentedControlProps ) => {
   const [interact, setInteract] = useState(false);
   const [hover, setPosition] = useState<IPosition>({});
   const [activePosition, setActivePosition] = useState<IPosition>({});
@@ -21,7 +23,8 @@ export const SegmentedControl = ({items, onChange, value, isLoading} : ISegmente
       width: event.currentTarget.getBoundingClientRect().width,
     } as IPosition);
   };
-  const [selectedValue, setSelection] = useStateProps(value);
+  const [selectedValue, setSelection] = useStateProps(value??items[0]?.value);
+  const size = useWindowResize();
   const setElementsHandler = (elem: HTMLButtonElement | null) => {
     if (elements && elem && !elements?.includes(elem)) {
       setElements([elem, ...elements]);
@@ -48,28 +51,42 @@ export const SegmentedControl = ({items, onChange, value, isLoading} : ISegmente
     }
   }, [elements, selectedValue]);
 
+  useEffect(() => {
+    const index = elements.findIndex(
+      (el) => el.dataset.value === selectedValue,
+  );
+    if (elements[index]) {
+      setActivePosition({
+        left: elements[index].offsetLeft,
+        top: elements[index].offsetTop,
+        height: elements[index].getBoundingClientRect().height,
+        width: elements[index].getBoundingClientRect().width,
+      });
+  }
+}, [size]);
+
   if (!elements) {
     return null;
   }
   if (isLoading) {
-    return <Preloader></Preloader>;
+    return <Preloader/>;
   }
   return (
-    <CategoryHolder>
+    <CategoryHolder className={className}>
       <Background
         onMouseLeave={() => setInteract(false)}
         onMouseEnter={() => setInteract(true)}
+        className='segmentedControlBackground'
       >
         <HoverBracket
           position={hover}
           width={hover?.width}
-          interact={interact}
         />
-        <ActiveBracket position={activePosition} />
+        <ActiveBracket position={activePosition} className='activeBracket'/>
         {items?.map((el) => {
           return (
             <StyledCategoryItem
-              key={el.value}
+              key={el.label}
               ref={(elem) => setElementsHandler(elem)}
               data-value={el.value}
               className={selectedValue === el.value ? 'active' : ''}

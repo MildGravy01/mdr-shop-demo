@@ -31,7 +31,6 @@ export const Shop = observer(() => {
     setActiveSubCategory,
     setActiveProduct,
     categories,
-    activeProduct,
     subCategories,
     activeCategory,
     successPurchase,
@@ -51,7 +50,7 @@ export const Shop = observer(() => {
 
   return (
     <Page
-      title={translation.t("menu.shop") + " -> " + activeCategory?.name}
+      title={translation.t("menu.shop") + (activeCategory?.name ? " - " + activeCategory?.name : "")}
       description={
         "Магазин майнкрафт сервера MDR. Здесь можно купить привилегии, кейсы, платину и многое другое!"
       }
@@ -64,6 +63,7 @@ export const Shop = observer(() => {
           <div className="shopHeader">
             <h1>{translation.t("pages.shop.header")}</h1>
             <SegmentedControl
+              className="segmentedControl"
               items={categories.map(
                 ({ id, name }) =>
                   ({ value: id, label: name } as ISegmentedControlItem)
@@ -76,6 +76,7 @@ export const Shop = observer(() => {
             />
             {subCategories?.length > 0 && (
               <SegmentedControl
+              className="segmentedControl"
               items={subCategories.map(
                 ({ id, name }) =>
                   ({ value: id, label: name } as ISegmentedControlItem)
@@ -87,7 +88,7 @@ export const Shop = observer(() => {
             )}
             {
               <StyledBonus>
-                {filteredProducts?.[0].temporary &&
+                {!filteredProducts?.[0]?.temporary &&
                   activeSubCategory?.type === "privillege" && (
                     <StyledBonusHeader>
                       <FontAwesomeIcon
@@ -98,7 +99,7 @@ export const Shop = observer(() => {
                       {translation.t("pages.shop.purchaseForever")}
                     </StyledBonusHeader>
                   )}
-                {filteredProducts?.[0].inherited && (
+                {filteredProducts?.[0]?.inherited === true && (
                   <StyledBonusHeader>
                     <FontAwesomeIcon
                       icon={faAngleUp}
@@ -109,6 +110,7 @@ export const Shop = observer(() => {
                   </StyledBonusHeader>
                 )}
                 {activeCategory?.id === "mysterybox" && (
+                  <>
                   <StyledBonusHeader>
                     <FontAwesomeIcon
                       icon={faStar}
@@ -117,18 +119,17 @@ export const Shop = observer(() => {
                     />{" "}
                     {translation.t("pages.shop.mysteryboxAll")}
                   </StyledBonusHeader>
-                )}
-                {activeCategory?.id === "mysterybox" && (
                   <StyledBonusHeader>
-                    <FontAwesomeIcon
-                      icon={faPaw}
-                      width={20}
-                      height={20}
-                    />{" "}
-                    {translation.t("pages.shop.mysteryboxDescription")}
-                  </StyledBonusHeader>
+                  <FontAwesomeIcon
+                    icon={faPaw}
+                    width={20}
+                    height={20}
+                  />{" "}
+                  {translation.t("pages.shop.mysteryboxDescription")}
+                </StyledBonusHeader>
+                </>
                 )}
-                {activeSubCategory?.type === "money" && (
+                {activeSubCategory?.id === "money" && (
                   <StyledBonusHeader>
                     <FontAwesomeIcon
                       icon={faCoins}
@@ -164,10 +165,8 @@ export const Shop = observer(() => {
                     />
                   );
                 })
-              : ""}
-            {!filteredProducts &&
-              [1, 2, 3, 4, 5, 6].map((el, index) => (
-                <Product key={index} product={undefined} />
+              : [1, 2, 3, 4, 5, 6].map((el, index) => (
+                <Product key={index} />
               ))}
           </ProductHolder>
         </StyledBody>

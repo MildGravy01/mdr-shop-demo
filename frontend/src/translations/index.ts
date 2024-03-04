@@ -15,7 +15,6 @@ translation.init({
           bans: 'Баны',
           discord: 'Discord',
           vk: 'Группа',
-          email: 'support@md-resorts.ru',
         },
         copyTooltip: {
           copied: 'Скопировано!',
@@ -26,10 +25,15 @@ translation.init({
           offline: 'Тех. работы',
         },
         footer: {
-          rights: 'Все права защищены. Part of MDRNetwork',
+          rights: 'Полное или частичное копирования сайта запрещено',
         },
         rules: {
           header: 'Правила сервера',
+        },
+        terms: {
+          header: 'Информация и Политика использования',
+          email: 'support@md-resorts.ru',
+          publicOffer: 'Договор-оферта'
         },
         pages: {
           about: {
@@ -76,6 +80,8 @@ translation.init({
             agreement_text:
               'Нажимая на кнопку "Оплатить", вы подтверждаете свое согласие с ',
             agreement_link: 'правилами и политикой использования',
+            agreement_and: ', а также с ',
+            publicOffer_link: 'Договором-офертой ',
             errors: {
               field_isRequired: 'Это поле обязательное',
               not_valid_email: 'Укажите правильную почту',

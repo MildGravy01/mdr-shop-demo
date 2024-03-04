@@ -1,0 +1,6 @@
+{
+    "watch": ["./"],
+    "ext": "ts,json",
+    "ignore": ["./frontend"],
+    "exec": "ts-node-esm --project ./tsconfig.json -r tsconfig-paths/register --experimental-specifier-resolution=node index.ts"
+  }

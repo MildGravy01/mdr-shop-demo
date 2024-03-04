@@ -14,12 +14,13 @@ interface ISaleBadgeProps {
 const StyledBadge = styled.div<Pick<ISaleBadgeProps, 'fontSize'>>`
 color: #F0158B;
 border: 1px dashed #F0158B;
-padding: 0px 5px;
+padding: 2.5px 10px;
 border-radius: 4px;
 font-size: ${({fontSize}) => fontSize}px;
-line-height: 150%;
+line-height: 140%;
 vertical-align: middle;
 text-align: center;
-font-family: "Raleway";
+font-family: Minecraft;
+font-size: 14px;
 cursor: default;
 `;

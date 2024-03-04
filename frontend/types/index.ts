@@ -1,25 +1,26 @@
+import { IUserForm } from "src/pages/Shop/types";
 
 export interface IProduct {
     id: string;
     name: string;
     price: number;
+    oldPrice: number;
     discount: number;
     shortDescription: string;
-    fullDescription: string;
+    fullDescription?: string;
     img: string;
-    countable: boolean;
-    temporary: boolean;
-    inherited: boolean;
+    countable?: boolean;
+    temporary?: boolean;
+    inherited?: boolean;
 }
 
-export interface IOrder {
-    product_id: string; 
-    price: number;
-    quantity: number;
-    player: string;
-    email: string;
-    promo_code: string;
-    payment_type: string;
+export interface ITempMultipliers {
+    threeMonthMultiplier: number;
+    foreverMultiplier: number;
+}
+
+export interface IOrder extends IUserForm {
+    productId: string; 
 }
 
 export interface ICategory{
@@ -31,11 +32,11 @@ export interface ISubcategory extends ICategory{
     type: TSubcategoryType;
 }
 
-export type TSubcategoryType = 'cases' | 'money' | 'privillege' | 'command';
+export type TSubcategoryType = 'cases' | 'misc' | 'privillege' | 'command';
 
 export interface IRules {
     chapter: string;
 }
-export interface IAgreement {
-    agreement: string;
+export interface IDocument {
+    text: string;
 }

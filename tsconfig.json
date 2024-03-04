@@ -1,0 +1,22 @@
+{
+   "ts-node": {
+    "require": ["tsconfig-paths/register"]
+    },
+    "compilerOptions": {
+      "baseUrl": "./",
+      "typeRoots": ["./node_modules/@types", "./types"],
+      "module": "esnext",
+      "esModuleInterop": true,
+      "moduleResolution": "node",
+      "sourceMap": true,
+      "paths": {
+        "controllers": ["./controllers"],
+        "models": ["./database"],
+        "services": ["./services"]
+      }
+    },
+    "exclude": [
+      "node_modules",
+      "frontend"
+    ]
+  }

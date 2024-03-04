@@ -61,20 +61,21 @@ export const ProductImage = styled.img<{countable?: boolean}>`
       `;
     } else {
       return css`
-        position: absolute;
+        /* position: absolute; */
+
         width: 200px;
         height: 200px;
-        @media screen and (min-width: 1200px) {
+        /* @media screen and (min-width: 1200px) {
           width: 320px;
           height: 320px;
         }
         @media screen and (min-width: 700px) {
           width: 200px;
           height: 200px;
-        }
+        } */
         border-radius: 0px 0px 10px 0px;
-        right: 0;
-        bottom: 0;
+        /* right: 0;
+        bottom: 0; */
       `;
     }
   }};
@@ -89,22 +90,24 @@ export const InfoHolder = styled.div<{height?: string}>`
   font-size: 18px;
   box-sizing: border-box;
   color: white;
-  padding: 0px 35px;
+  padding: 20px 35px;
   margin-bottom: 0px;
   gap: 30px;
   grid-gap: 30px;
   overflow-x: hidden;
   .commands {
     position: inherit;
-    font-family: "Raleway-Bold";
+    font-family: "Minecraft";
     width: 75%;
+    font-size: 14px;
+    z-index: 1;
     div {
       position: inherit;
-      font-family: "Raleway";
+      font-family: Raleway;
       width: 100%;
       margin: 10px 0px;
       line-height: 20px;
-      font-size: 12.5px;
+      font-size: 13.5px;
       background-color: #212126;
       padding: 10px 10px;
       height: ${({height}) => height};
@@ -113,9 +116,14 @@ export const InfoHolder = styled.div<{height?: string}>`
   }
   .possibilities {
     position: inherit;
-    font-family: "Raleway-Bold";
+    font-family: Minecraft;
+    font-size: 14px;
     div {
       padding: 10px 5px;
+      -webkit-box-shadow: 0px 0px 39px -21px rgba(7, 9, 11, 0.8);
+-moz-box-shadow: 0px 0px 39px -21px rgba(7, 9, 11, 0.8);
+box-shadow: 0px 0px 39px -21px rgba(7, 9, 11, 0.8);
+      border-radius: 10px;
       font-family: "Raleway";
       position: inherit;
       width: 100%;
@@ -124,7 +132,7 @@ export const InfoHolder = styled.div<{height?: string}>`
       margin: 10px 0px;
       max-height: 150px;
       @media screen and (max-width: 1500px) {
-        max-height: 110px;
+        max-height: 160px;
       }
     }
   }
@@ -141,9 +149,25 @@ export const ModalBody = styled.div<{height: number | string; margin?: number | 
   min-width: 400px;
   max-width: 600px;
   position: relative;
-  .price-holder {
-    padding: 20px 35px;
+  .footerHolder {
+    width: 100%;
+    min-height: 50px;
     display: flex;
+    align-items: center;
+    padding-left: 35px;
+    box-sizing: border-box;
+    justify-content: space-between;
+    .temporarySelector {
+      .activeBracket {
+        background-color: transparent;
+      }
+      .segmentedControlBackground{
+        min-height: 25px;
+        height: 100%;
+        background-color: #212126;
+        border: 1px dashed #2f2f36;
+      }
+    }
   }
 `;
 ModalBody.defaultProps = {
@@ -192,8 +216,8 @@ export const Header = styled.div`
     margin-right: 10px;
   }
   color: white;
-  font-family: "Raleway-Bold";
-  font-size: 24px;
+  font-family: Minecraft;
+  font-size: 20px;
   padding: 20px 30px;
 `;
 export const PaymentHolder = styled.div`
@@ -206,6 +230,9 @@ export const PaymentHolder = styled.div`
     width: 30%;
     font-size: 16px;
     margin-bottom: 10px;
+  }
+  a {
+    color: rgba(122,122,122,0.86);
   }
 `;
 

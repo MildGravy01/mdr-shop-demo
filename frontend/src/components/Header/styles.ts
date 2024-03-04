@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Logo from 'img/Logo.svg';
 
 export const StyledHeader = styled.header`
   background-color: #1b1b20;
@@ -12,7 +11,7 @@ export const StyledHeader = styled.header`
   position: relative;
   padding: 0 10px;
   line-height: 15px;
-  height: 30%;
+  align-items: center;
   top: 0;
   right: 0;
   left: 0;
@@ -30,7 +29,7 @@ export const StyledHeader = styled.header`
   }
 `;
 
-export const StyledLogo = styled(Logo)`
+export const StyledLogo = styled.img`
   align-self: center;
   cursor: pointer;
 `;
@@ -92,17 +91,35 @@ export const StyledMenuButtonEmail = styled(StyledMenuButton)`
 `;
 
 export const StyledFooter = styled.div`
-
   display: flex;
   z-index: 10;
-  justify-content: center;
-  flex-direction: column;
+  justify-content: space-between;
+  flex-direction: row;
   gap: 10px;
-  text-align: center;
-  align-items: center;
+  text-align: left;
+  align-items: start;
   color: rgba(122,122,122,0.86);
   font-family: Raleway;
-  padding: 25px 10px;
+  font-size: 15px;
+  padding: 25px 50px;
   font-weight: 600;
   background-color: #1b1b20;
+  div {
+    a{
+      color: rgba(122,122,122,0.86);
+    }
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    .icon {
+      padding-right: 10px;
+    }
+    .terms {
+      padding: 5px 0px;
+    }
+    gap: 10px;
+  }
 `;
+
+

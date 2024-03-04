@@ -8,6 +8,9 @@ export const Wrapper = styled.div`
   margin-right: auto;
   max-width: 1140px;
   display: flex;
+  .segmentedControl{
+    height: 35px;
+  }
 `;
 export const StyledBody = styled.div`
   width: 100%;

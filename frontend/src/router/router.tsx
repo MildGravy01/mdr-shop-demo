@@ -3,7 +3,7 @@ import {
   createRoutesFromElements,
   Route,
 } from 'react-router-dom';
-import {About, Shop, Page404, Rules} from '../pages';
+import {About, Shop, Page404, Rules, TermsAndConditions, PublicOffer} from '../pages';
 import {createBrowserHistory} from 'history';
 import {PageLayout} from '../pages/Layout';
 
@@ -15,6 +15,8 @@ export const router = createBrowserRouter(
           <Route path="/shop/:category/:subcategory" element={<Shop />} />
           <Route path="/about" element={<About />} />
           <Route path="/rules" element={<Rules />} />
+          <Route path="/publicOffer" element={<PublicOffer />} />
+          <Route path="/terms" element={<TermsAndConditions />} />
           <Route path="*" element={<Page404 />} />
         </Route>,
     ),

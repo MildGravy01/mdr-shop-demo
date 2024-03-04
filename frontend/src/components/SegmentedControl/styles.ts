@@ -65,7 +65,6 @@ export const Background = styled.div`
   flex-wrap: wrap;
   background-color: #0f0f0f;
   border-radius: 8px;
-  height: max-content;
   .active {
     opacity: 0.9;
   }
@@ -78,18 +77,18 @@ export const StyledCategoryItem = styled.button`
   background-color: transparent;
   color: white;
   flex: 1 1 auto;
-  padding: 0px 20px;
+  padding: 0px 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   border: none;
   font-family: "Raleway";
+  vertical-align: middle;
   cursor: pointer;
   margin: 0px 0px;
   @media screen and (max-width: 600px) {
     margin: 0px 0px;
   }
-  height: 35px;
   font-size: 16px;
   opacity: 0.4;
   transition: all 0.4s;

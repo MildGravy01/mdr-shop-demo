@@ -1,10 +1,11 @@
 export interface IPriceBadgeProps {
     price: number;
-    sale: number;
-    promo?: IPromo | null;
-    amount?: number;
+    oldPrice: number;
+    countable?: number;
+    activated?: boolean;
+    startingFrom?: boolean;
 }
 
 export interface IPromo {
-    discount: number
+    value: number
 }

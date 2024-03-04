@@ -27,6 +27,15 @@ const Modal = ({isOpen, closeHandler, children, onClose}: IModalProps) => {
   } else {
     document.body.style.overflow = 'auto';
   }
+
+  useEffect(() => {
+   if(isOpen){
+    document.body.style.overflow = 'hidden';
+   } else {
+    document.body.style.overflow = 'unset';
+   }
+}, [isOpen]);
+
   const ModalBody = (
     <AnimatePresence>
       {isOpen&&

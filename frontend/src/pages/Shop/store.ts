@@ -1,12 +1,11 @@
-import {action, makeObservable, observable} from 'mobx';
-import API from '../../api/';
+import {action, makeObservable, observable } from 'mobx';
+import API, { debounce } from '../../api/';
 import {history} from '../../router';
 import {translation} from '../../translations';
 import { RootStore } from 'src/router/rootStore';
-import { ICategory, IProduct, ISubcategory } from 'types';
-import { IUserError, IUserForm } from './types';
+import { ICategory, IProduct, ISubcategory, ITempMultipliers } from 'types';
+import { IActiveProduct, IUserError, IUserForm, TKey, TTempPricings } from './types';
 import { IPromo } from 'src/components/PriceBadge/types';
-
 export class ShopStore {
   searchParams = new URLSearchParams(history.location.search);
   rootStore: RootStore;
@@ -14,15 +13,16 @@ export class ShopStore {
   subCategories: ISubcategory[] = [];
   activeCategory?: ICategory | null = null;
   activeSubCategory?: ISubcategory | null = null;
-  activeProduct: IProduct | null = null;
+  activeProduct: IActiveProduct | null = null;
   filteredProducts: IProduct[] | null = [];
 
   userForm: IUserForm = {
-    userName: '',
-    userEmail: '',
-    userPaymentType: 'qiwi',
-    userPromo: '',
-    userProductQuantity: 1,
+    name: '',
+    email: '',
+    paymentType: 'lava',
+    promo: '',
+    productAmount: 1,
+    durationChoice: 'month'
   };
 
   userError: IUserError = {
@@ -31,6 +31,7 @@ export class ShopStore {
     promoInput: '',
   };
   successPurchase = false;
+  tempProductsMultiplier: ITempMultipliers | null  = null;
   userPromoValue: IPromo | null = null;
 
   constructor(rootStore: RootStore) {
@@ -44,6 +45,7 @@ export class ShopStore {
       userPromoValue: observable,
       successPurchase: observable,
       filteredProducts: observable,
+      tempProductsMultiplier: observable,
       closeSuccessModal: action.bound,
       fetchData: action.bound,
       setActiveCategory: action.bound,
@@ -70,8 +72,9 @@ export class ShopStore {
       const userQuery = this.searchParams.get('username');
       const afterPurchase = this.searchParams.get('purchase');
       if (userQuery) {
-        this.userForm = {...this.userForm, userName: userQuery};
+        this.userForm = {...this.userForm, name: userQuery};
       }
+      this.tempProductsMultiplier = await API.getTempMultipliers();
       if (categoryURL) {
         this.setActiveCategory(categoryURL, subcategoryURL);
       } else {
@@ -100,6 +103,9 @@ export class ShopStore {
       this.activeCategory = this?.categories.find(
           (el) => el.id === categoryID,
       );
+      if(!this.activeCategory){
+        this.activeCategory = this?.categories[0];
+      }
       if(this.activeCategory){
         const subCategories = await API.getSubCategories(this.activeCategory);
         this.subCategories = subCategories;
@@ -135,21 +141,10 @@ export class ShopStore {
     if (!this.filteredProducts) {
       return;
     }
-    const preProductPosition = await this.filteredProducts?.findIndex(
+    const preProductPosition = this.filteredProducts?.findIndex(
         (el) => el.id === product,
     );
     const preProduct = this.filteredProducts[preProductPosition];
-    // if(preProduct?.inherited) {
-    //   let desc_commands = "";
-    //   preProduct.desc_commands = "";
-    //   for(let i = 0; i <= preProductPosition; i++){
-    //     let description = this.filteredProducts[i]?.desc_commands;
-    //     if(description && !desc_commands.includes(description)){
-    //       desc_commands += description + "<br>";
-    //     }
-    //   }
-    //   preProduct.desc_commands = desc_commands;
-    // }
     this.activeProduct = preProduct;
     if (this.activeProduct && !this.searchParams.get('product')) {
       this.searchParams.append('product', String(this.activeProduct.id));
@@ -158,7 +153,7 @@ export class ShopStore {
   }
 
   setFilteredProducts = async () => {
-    if(this.activeCategory && this.activeSubCategory){
+    if(this.activeCategory){
       this.filteredProducts = await API.getProducts(
         this.activeCategory,
         this.activeSubCategory,
@@ -166,8 +161,21 @@ export class ShopStore {
     }
   };
 
-  setUserForm(value: IUserForm) {
-    this.userForm = value;
+  setUserForm<K extends TKey<IUserForm>>(key: K ,value: IUserForm[K]) {
+    if(key === "promo" && value !== this.userForm.promo){
+      this.debouncedSetUserPromo(value);
+    }
+    if(key === "durationChoice" && value !== this.userForm.durationChoice){
+      if(this.activeProduct && this.tempProductsMultiplier){
+        const multiplierKey: keyof ITempMultipliers = `${value}Multiplier` as keyof ITempMultipliers;
+        if(value as TTempPricings !== 'month'){
+          this.activeProduct.tempPrice = this.activeProduct.price * this.tempProductsMultiplier[multiplierKey]
+        } else {
+          this.activeProduct.tempPrice = undefined;
+        }
+      }
+    }
+    this.userForm = {...this.userForm, [key]: value};
   }
 
   setUserError(key: string, value: string) {
@@ -181,6 +189,10 @@ export class ShopStore {
     ) as IUserError;
   }
 
+  debouncedSetUserPromo = debounce((value: string) => {
+    this.setUserPromo(value);
+  }, 700);
+  
   setUserPromo = async (promo?: string) => {
     if (!promo) {
       this.userPromoValue = null;
@@ -236,18 +248,10 @@ export class ShopStore {
   }
 
   applyForPayment() {
-    if (this?.userForm?.userPromo !== '' && this?.userPromoValue == null) {
-      this.setUserPromo(this?.userForm.userPromo);
-    } else {
       if(this.activeProduct){
         API.applyOrder({
-          product_id: this.activeProduct.id, 
-          price: this?.activeProduct?.price,
-          quantity: this?.userForm?.userProductQuantity,
-          player: this?.userForm?.userName,
-          email: this?.userForm?.userEmail,
-          promo_code: this?.userForm?.userPromo,
-          payment_type: this?.userForm?.userPaymentType,
+          productId: this.activeProduct.id, 
+          ...this.userForm
         }).then(
             (response) => {
               if (response.location) {
@@ -280,6 +284,5 @@ export class ShopStore {
             },
         );
       }
-    }
   }
 }

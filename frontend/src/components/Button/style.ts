@@ -8,13 +8,13 @@ export const StyledButton = styled.button<Pick<IButtonProps, 'type' | 'isDisable
         return css`
           background-color: #4541ea;
           color: white;
-          font-family: "Raleway";
+          font-family: Minecraft;
           font-size: 14px;
           padding: 4px 10px;
           transition: all 0.2s;
           outline: #4541ea solid 0px;
 
-          ${() => isDisabled &&
+          ${!isDisabled &&
             css`
               &:hover {
                 outline: #4541ea solid 2px;
@@ -38,7 +38,7 @@ export const StyledButton = styled.button<Pick<IButtonProps, 'type' | 'isDisable
         return css`
           background-color: #212126;
           color: white;
-          font-family: "Raleway";
+          font-family: Minecraft;
           font-size: 14px;
           padding: 4px 10px;
           transition: all 0.2s;
